@@ -1,31 +1,39 @@
-#include<iostream>
-#include<fstream>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
-using namespace std;
+int main() {
+   
+    std::srand(std::time(0));
 
-int main()
-{
-    ifstream inFile;   //Declare a file stream object
-    string fileName;
-    string word;
-    int count = 0;
+    int lowerBound = 1; 
+    int upperBound = 100; 
+    int randomNumber = std::rand() % (upperBound - lowerBound + 1) + lowerBound;
 
-    cout << "Please enter the file name ";
-    getline(cin,fileName);
+    int userGuess;
+    int attempts = 0;
 
-    inFile.open(fileName.c_str());
+    std::cout << "Welcome to the Number Guessing Game!" << std::endl;
+    std::cout << "I have chosen a number between " << lowerBound << " and " << upperBound << "." << std::endl;
 
-    while(!inFile.eof())  // End-Of-Line() function
-    {                
-        inFile >> word; 
-        count++;
-    }
+    do {
+        std::cout << "Enter your guess: ";
+        std::cin >> userGuess;
+        attempts++;
 
-    cout << "Number of words in file is " << count;
-    inFile.close();
+        if (userGuess < randomNumber) {
+            std::cout << "Too low! Try again." << std::endl;
+        } else if (userGuess > randomNumber) {
+            std::cout << "Too high! Try again." << std::endl;
+        } else {
+            std::cout << "Congratulations! You guessed the correct number: " << randomNumber << std::endl;
+            std::cout << "Number of attempts: " << attempts << std::endl;
+        }
 
-    cin.get();  
+    } while (userGuess != randomNumber);
+
     return 0;
 }
+
 
 
